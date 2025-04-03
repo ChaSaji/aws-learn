@@ -1,6 +1,6 @@
 ---
-name:
-about: Task用テンプレート
+name: Issueテンプレート
+about: Issue用テンプレート
 title: "<title>"
 ---
 
