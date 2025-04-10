@@ -1,14 +1,14 @@
 ```mermaid
 erDiagram
     cognito_user {
-        int sub PK "uuid"
+        int sub PK "UUID"
         string preferred_username "ハンドルネーム"
         string email UK
         string profile "プロフィール文"
         int picture "プロフィール画像"
     }
     blog {
-        int id PK "ブログID"
+        int id PK "ブログID（UUID）"
         int user_sub "cognito_userのsub"
         string title "タイトル"
         string content "mdを保存 文章"
