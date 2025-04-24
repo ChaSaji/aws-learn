@@ -28,5 +28,4 @@ volumes:
   postgres-data:
     driver: local
 
-# backendからデータベースへの接続
-# psql -h chasaji-db -U postgres -p 5432 -d learn -P pager=off
+
