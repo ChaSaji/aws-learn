@@ -1,0 +1,36 @@
+services:
+  backend:
+    build:
+      context: ./backend # Dockerfile があるサブディレクトリ
+      dockerfile: Dockerfile # Dockerfileのファイル名を明示
+    container_name: chasaji-backend
+    working_dir: /app
+    volumes:
+      - ./backend/:/app
+    ports:
+      - "8000:8000"
+    # networks:
+    #   - chasaji-network
+    command: tail -f /dev/null
+
+  db:
+    build:
+      context: ./db # Dockerfile があるサブディレクトリ
+      dockerfile: Dockerfile # Dockerfileのファイル名を明示
+    container_name: chasaji-db
+    environment:
+      POSTGRES_DB: learn
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: sajisaji
+    # networks:
+    #   - chasaji-network
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+      # - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
+    driver: local
+# psql -h chasaji-db -U postgres -p 5432 -d learn
