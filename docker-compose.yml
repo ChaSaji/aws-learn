@@ -9,28 +9,24 @@ services:
       - ./backend/:/app
     ports:
       - "8000:8000"
-    # networks:
-    #   - chasaji-network
-    command: tail -f /dev/null
+    command: tail -f /dev/null # 起動時に即時終了を防ぐコマンド
 
   db:
-    build:
-      context: ./db # Dockerfile があるサブディレクトリ
-      dockerfile: Dockerfile # Dockerfileのファイル名を明示
+    image: postgres:14.17
     container_name: chasaji-db
     environment:
       POSTGRES_DB: learn
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: sajisaji
-    # networks:
-    #   - chasaji-network
     ports:
       - "5432:5432"
     volumes:
-      - ./db:/docker-entrypoint-initdb.d
-      # - postgres-data:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d
+      - postgres-data:/var/lib/postgresql/data
 
 volumes:
   postgres-data:
     driver: local
-# psql -h chasaji-db -U postgres -p 5432 -d learn
+
+# backendからデータベースへの接続
+# psql -h chasaji-db -U postgres -p 5432 -d learn -P pager=off
