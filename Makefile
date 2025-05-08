@@ -1,4 +1,7 @@
 up:
+	docker-compose up
+
+up-d:
 	docker-compose up -d
 
 # docker-compose up --build -d #イメージをビルド
