@@ -9,7 +9,7 @@ services:
       - ./backend/:/app
     ports:
       - "8000:80"
-    command: uvicorn main:app --host 0.0.0.0 --port 80 # 起動時に即時終了を防ぐコマンド
+    command: uvicorn main:app --host 0.0.0.0 --port 80 --reload # 起動時に即時終了を防ぐコマンド
 
   db:
     image: postgres:14.17
