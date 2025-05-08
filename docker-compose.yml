@@ -8,8 +8,8 @@ services:
     volumes:
       - ./backend/:/app
     ports:
-      - "8000:8000"
-    command: tail -f /dev/null # 起動時に即時終了を防ぐコマンド
+      - "8000:80"
+    command: uvicorn main:app --host 0.0.0.0 --port 80 # 起動時に即時終了を防ぐコマンド
 
   db:
     image: postgres:14.17
