@@ -1,0 +1,59 @@
+# GitHub Actions CI template: Lint とテストを自動実行します
+name: CI
+
+# main ブランチへのプッシュで動作
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  # JavaScript/TypeScript 用ジョブ（Prettier, ESLint, テスト）
+  js:
+    name: JS/TS Lint & Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: Node.js をセットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'pnpm'          # キャッシュ設定を pnpm に
+      - name: pnpm をインストール
+        run: npm install -g pnpm
+
+      # pnpm-lock.yaml を参照して依存関係を高速に解決
+      - name: 依存パッケージをインストール
+        run: pnpm install --frozen-lockfile
+
+      - name: Prettier でフォーマットチェック
+        run: pnpm run format
+
+      - name: ESLint でコード品質チェック
+        run: pnpm run lint
+
+  # Python 用ジョブ（Ruff, pytest）
+  python:
+    name: Python Lint & Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: Python をセットアップ
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: pip アップグレード
+        run: python -m pip install --upgrade pip
+
+      - name: 依存パッケージのインストール
+        run: pip install -r requirements.txt
+
+      - name: Ruff でフォーマットチェック
+        run: ruff format .
+
+      - name: Ruff でリントチェック
+        run: ruff check .
