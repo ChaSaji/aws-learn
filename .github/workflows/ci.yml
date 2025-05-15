@@ -19,19 +19,22 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'pnpm'          # キャッシュ設定を pnpm に
+
       - name: pnpm をインストール
         run: npm install -g pnpm
 
       # pnpm-lock.yaml を参照して依存関係を高速に解決
       - name: 依存パッケージをインストール
         run: pnpm install --frozen-lockfile
+        working-directory: ./frontend
 
       - name: Prettier でフォーマットチェック
         run: pnpm run format
+        working-directory: ./frontend
 
       - name: ESLint でコード品質チェック
         run: pnpm run lint
+        working-directory: ./frontend
 
   # Python 用ジョブ（Ruff, pytest）
   python:
@@ -51,9 +54,12 @@ jobs:
 
       - name: 依存パッケージのインストール
         run: pip install -r requirements.txt
+        working-directory: ./backend
 
       - name: Ruff でフォーマットチェック
         run: ruff format .
+        working-directory: ./backend
 
       - name: Ruff でリントチェック
         run: ruff check .
+        working-directory: ./backend
