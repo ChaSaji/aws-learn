@@ -27,7 +27,7 @@ jobs:
           port: 22
           # サーバ起動スクリプトの実行
           script: |
-            cd /home/ec2-user/aws-learn
+            cd /home/ec2-user/aws-learn/backend
             git pull origin main
             pip3 install -r requirements.txt
             # root 権限で nohup を起動し、バックグラウンド化
