@@ -25,26 +25,12 @@ jobs:
           username: ${{ secrets.EC2_USER }}     # 例: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}       # 秘密鍵 (PEM 形式)
           port: 22
-          # リポジトリ内 backend フォルダを EC2 の /home/ubuntu/app に同期
-          source: "backend/"
-          target: "/home/ubuntu/app"
-          # リモートで実行するコマンド
+          # サーバ起動スクリプトの実行
           script: |
-            set -eux
-            cd /home/ubuntu/app
+            cd /home/ec2-user/aws-learn
+            git pull origin main
+            pip3 install -r requirements.txt
+            # root 権限で nohup を起動し、バックグラウンド化
+            sudo nohup uvicorn main:app --host 0.0.0.0 --port 80 > uvicorn.log 2>&1 &
 
-            # （任意）仮想環境を使う場合
-            if [ ! -d ".venv" ]; then
-              python3 -m venv .venv
-            fi
-            source .venv/bin/activate
 
-            pip install --upgrade pip
-            pip install -r requirements.txt
-
-            # systemd で起動している場合
-            sudo systemctl restart fastapi-backend
-
-            # もし Docker Compose で運用している場合はコメントアウト解除
-            # docker-compose pull
-            # docker-compose up -d --remove-orphans
