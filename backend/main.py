@@ -31,7 +31,7 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-    return {"message": "hiro"}
+    return {"message": "megumi"}
 
 
 @app.get("/blogs/", response_model=List[schemas.Blog])
