@@ -1,0 +1,50 @@
+# .github/workflows/deploy-backend.yml
+name: Deploy Backend to EC2
+
+on:
+  workflow_run:
+    workflows: ["CI"]      # CI ワークフローの name と合わせる
+    types:
+      - completed
+
+jobs:
+  deploy-backend:
+    name: Deploy Python Backend to EC2
+    runs-on: ubuntu-latest
+    # main ブランチかつ CI 成功時のみ
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' }}
+
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: EC2 へ同期＆リモートコマンド実行
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_HOST }}         # 例: 52.11.22.33
+          username: ${{ secrets.EC2_USER }}     # 例: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}       # 秘密鍵 (PEM 形式)
+          port: 22
+          # リポジトリ内 backend フォルダを EC2 の /home/ubuntu/app に同期
+          source: "backend/"
+          target: "/home/ubuntu/app"
+          # リモートで実行するコマンド
+          script: |
+            set -eux
+            cd /home/ubuntu/app
+
+            # （任意）仮想環境を使う場合
+            if [ ! -d ".venv" ]; then
+              python3 -m venv .venv
+            fi
+            source .venv/bin/activate
+
+            pip install --upgrade pip
+            pip install -r requirements.txt
+
+            # systemd で起動している場合
+            sudo systemctl restart fastapi-backend
+
+            # もし Docker Compose で運用している場合はコメントアウト解除
+            # docker-compose pull
+            # docker-compose up -d --remove-orphans
