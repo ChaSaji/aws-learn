@@ -32,5 +32,6 @@ jobs:
             pip3 install -r requirements.txt
             # root 権限で nohup を起動し、バックグラウンド化
             sudo nohup python3 -m uvicorn main:app --host 0.0.0.0 --port 80 > uvicorn.log 2>&1 &
+            echo "out put uvicorn.log"
             cat uvicorn.log
             echo "------fin------"
