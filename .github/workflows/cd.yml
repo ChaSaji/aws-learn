@@ -11,6 +11,8 @@ jobs:
   js:
     name: Deploy JS/TS to S3
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }} # 成功時のみ実行
+
     steps:
       - name: リポジトリをチェックアウト
         uses: actions/checkout@v4
