@@ -2,8 +2,10 @@
 name: Deploy to S3
 
 on:
-  push:
-    branches: [main]
+  workflow_run:
+    workflows: ["CI"] # ← CIワークフローのnameと一致
+    types:
+      - completed
 
 jobs:
   js:
