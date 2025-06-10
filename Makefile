@@ -1,3 +1,5 @@
+.PHONY: up up-d up-build down stop psql exec-db exec-be schema seed
+
 up:
 	docker-compose up
 
