@@ -5,7 +5,7 @@ from datetime import datetime
 
 class Blog(BaseModel):
     id: UUID
-    user_sub: UUID
+    user_id: UUID
     title: str
     content: str
     created_at: datetime
