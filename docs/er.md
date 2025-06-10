@@ -1,20 +1,22 @@
 ```mermaid
 erDiagram
-    cognito_user {
-        int sub PK "UUID"
+    users {
+        uuid id PK "cognitoで管理されるsub"
         string preferred_username "ハンドルネーム"
         string email UK
         string profile "プロフィール文"
-        int picture "プロフィール画像"
+        text picture "プロフィール画像"
+        date created_at "作成日"
+        date updated_at "更新日"
     }
-    blog {
-        int id PK "ブログID（UUID）"
-        int user_sub "cognito_userのsub"
+    blogs {
+        uuid id PK "ブログID"
+        uuid user_id
         string title "タイトル"
         string content "mdを保存 文章"
         date created_at "作成日"
         date updated_at "更新日"
     }
 
-    cognito_user 1--0+ blog : ""
+    users 1--0+ blogs : ""
 ```
