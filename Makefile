@@ -1,3 +1,5 @@
+.PHONY: up up-d up-build down stop psql exec-db exec-be schema seed
+
 up:
 	docker-compose up
 
@@ -25,4 +27,12 @@ exec-db:
 
 exec-be:
 	docker exec -it chasaji-backend bash
+
+# スキーマの更新を適用
+schema:
+	docker exec -it chasaji-db psql -U postgres -d learn -f /docker-entrypoint-initdb.d/schema_definition.sql
+
+# シードデータの適用
+seed:
+	docker exec -it chasaji-db psql -U postgres -d learn -f /docker-entrypoint-initdb.d/seed_data.sql
 
