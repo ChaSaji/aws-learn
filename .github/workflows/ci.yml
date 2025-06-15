@@ -1,7 +1,7 @@
 # GitHub Actions CI template: Lint とテストを自動実行します
 name: CI
 
-# PRの作成で動作
+# PRの作成・更新で動作
 on:
   pull_request:
 
