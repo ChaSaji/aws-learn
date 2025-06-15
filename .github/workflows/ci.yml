@@ -1,10 +1,9 @@
 # GitHub Actions CI template: Lint とテストを自動実行します
 name: CI
 
-# main ブランチへのプッシュで動作
+# PRの作成で動作
 on:
-  push:
-    branches: [ main ]
+  pull_request:
 
 jobs:
   # JavaScript/TypeScript 用ジョブ（Prettier, ESLint, テスト）
