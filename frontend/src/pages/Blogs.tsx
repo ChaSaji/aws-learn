@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { BlogCard } from '../features/blogs/BlogCard';
+import styles from './Blogs.module.css';
 
 interface BlogsData {
   id: number;
@@ -12,43 +13,50 @@ interface BlogsData {
 const BlogsData: BlogsData[] | null = [
   {
     id: 1,
-    title: 'ブログタイトル1',
+    title:
+      '2行を超えるなが～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～いブログタイトル',
     createdAt: new Date(),
     updatedAt: new Date(),
-    userName: 'ユーザー名1',
+    userName:
+      'ちょっとなが～～～～～～～～いユーザー名(名前って文字数制限あるの？)',
     picture: 1,
   },
   {
     id: 2,
-    title: 'ブログタイトル2',
+    title: 'そこそこ普通のブログタイトル',
     createdAt: new Date(),
     updatedAt: new Date(),
-    userName: 'ユーザー名2',
+    userName: 'そこそこ普通のユーザー名',
     picture: 2,
   },
   {
     id: 3,
-    title: 'ブログタイトル3',
+    title:
+      '2行は超えないちょっとなが～～～～～～～～～～～～～～～～～～～～～～～いブログタイトル',
     createdAt: new Date(),
     updatedAt: new Date(),
-    userName: 'ユーザー名3',
+    userName: '適当ユーザー名',
     picture: 3,
   },
 ];
 
 function Blogs() {
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-4xl font-bold mb-4">Blogs</h1>
-      <p className="text-lg">This page is under construction.</p>
-      <ul>
-        {/* dataがnullの可能性もあるのでチェック */}
+    <div>
+      <h1>ブログの一覧</h1>
+      {/* dataがnull時の挙動をどうするか決めたい */}
+      <div className={styles.blogsList}>
         {BlogsData?.map((BlogsData) => (
-          <li key={BlogsData.id}>
-            <strong>{BlogsData.title}</strong> ({BlogsData.userName})
-          </li>
+          <BlogCard
+            id={BlogsData.id}
+            title={BlogsData.title}
+            userName={BlogsData.userName}
+            createdAt={BlogsData.createdAt}
+            updatedAt={BlogsData.updatedAt}
+            picture={BlogsData.picture}
+          />
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
