@@ -2,7 +2,7 @@ import { Card } from '../../components/ui/Card';
 import styles from './BlogCard.module.css';
 
 type BlogCardProps = {
-  id: number;
+  id: string;
   title: string;
   createdAt: Date;
   updatedAt: Date;
