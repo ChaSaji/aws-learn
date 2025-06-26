@@ -13,12 +13,10 @@ type BlogCardProps = {
 };
 
 export const BlogCard = ({
-  id,
   title,
   createdAt,
   updatedAt,
   userName,
-  picture,
   onCardClick,
   onUsernameClick,
 }: BlogCardProps) => {
