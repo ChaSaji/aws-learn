@@ -6,8 +6,16 @@ import pluginPrettier from 'eslint-plugin-prettier';
 import { defineConfig } from 'eslint/config';
 
 export default defineConfig([
-  js.configs.recommended, //  Flat Config ではこう書く
-
+  {
+    ignores: [
+      'node_modules/**',
+      'dist/**',
+      'build/**',
+      'coverage/**',
+      '.git/**',
+    ],
+  },
+  js.configs.recommended,
   tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
 
@@ -18,6 +26,11 @@ export default defineConfig([
     },
     plugins: {
       prettier: pluginPrettier,
+    },
+    settings: {
+      react: {
+        version: 'detect',
+      },
     },
     rules: {
       'prettier/prettier': 'error',
