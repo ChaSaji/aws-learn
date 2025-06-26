@@ -1,8 +1,6 @@
 import styles from './Card.module.css';
 
-type CardProps = React.HTMLAttributes<HTMLDivElement> & {
-  className?: string;
-};
+type CardProps = React.HTMLAttributes<HTMLDivElement>;
 
 export const Card = ({ children, className, ...rest }: CardProps) => {
   const combinedClassName = `${styles.card} ${className || ''}`;
