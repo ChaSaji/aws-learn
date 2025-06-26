@@ -8,6 +8,8 @@ type BlogCardProps = {
   updatedAt: Date;
   userName: string;
   picture: number;
+  onCardClick: () => void;
+  onUsernameClick: () => void;
 };
 
 export const BlogCard = ({
@@ -17,12 +19,18 @@ export const BlogCard = ({
   updatedAt,
   userName,
   picture,
+  onCardClick,
+  onUsernameClick,
 }: BlogCardProps) => {
   const createdDate = new Date(createdAt).toLocaleDateString('ja-JP');
   const updatedDate = new Date(updatedAt).toLocaleDateString('ja-JP');
   const profileImageUrl = `https://picsum.photos/id/237/200/`; // サンプル：適宜変更してください
+  const handleUsernameClick = (event: React.MouseEvent) => {
+    event.stopPropagation(); // 親へのイベント伝播をここで止める！
+    onUsernameClick(); // 親から渡された関数を実行する
+  };
   return (
-    <Card>
+    <Card className={styles.clickableCard} onClick={onCardClick}>
       <div className={styles.container}>
         <img
           src={profileImageUrl}
@@ -30,7 +38,9 @@ export const BlogCard = ({
           className={styles.profileImage}
         />
         <div className={styles.metaContainer}>
-          <span className={styles.userName}>{userName}</span>
+          <span className={styles.userName} onClick={handleUsernameClick}>
+            {userName}
+          </span>
           <span>
             作成日：{createdDate} 更新日：{updatedDate}
           </span>

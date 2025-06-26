@@ -41,7 +41,14 @@ function Blogs() {
       picture: 3,
     },
   ];
-
+  const handleCardClick = (blogId: string) => {
+    // TODO: ここはブログ詳細ページへの遷移に置き換えることを想定
+    console.log(`カードがクリックされました！ ID: ${blogId}`);
+  };
+  const handleUsernameClick = (userName: string) => {
+    // TODO: ここはユーザープロフィールページへの遷移に置き換えることを想定
+    console.log(`ユーザー名がクリックされました！ ユーザー名: ${userName}`);
+  };
   return (
     <div>
       <h1>ブログの一覧</h1>
@@ -49,6 +56,8 @@ function Blogs() {
       <div className={styles.blogsList}>
         {blogsData?.map((blogsData) => (
           <BlogCard
+            onCardClick={() => handleCardClick(blogsData.id)}
+            onUsernameClick={() => handleUsernameClick(blogsData.userName)}
             key={blogsData.id}
             id={blogsData.id}
             title={blogsData.title}
