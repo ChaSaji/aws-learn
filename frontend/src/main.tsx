@@ -1,8 +1,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
-import App from './App.tsx';
 import { AuthProvider } from 'react-oidc-context';
+import { RouterProvider } from 'react-router';
+import router from './routes.tsx';
 
 const cognitoAuthConfig = {
   authority:
@@ -16,7 +17,7 @@ const cognitoAuthConfig = {
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AuthProvider {...cognitoAuthConfig}>
-      <App />
+      <RouterProvider router={router} />
     </AuthProvider>
   </StrictMode>
 );
