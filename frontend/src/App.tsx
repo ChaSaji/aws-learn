@@ -2,15 +2,16 @@ import { useState, useEffect } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
-import { useAuth } from "react-oidc-context";
+import { useAuth } from 'react-oidc-context';
 
 function App() {
   const auth = useAuth();
 
   const signOutRedirect = () => {
-    const clientId = "6853gvj2etkjscvolje3mnrifc";
-    const logoutUri = "http://localhost:5173/";
-    const cognitoDomain = "https://ap-northeast-1govy1nd3f.auth.ap-northeast-1.amazoncognito.com";
+    const clientId = '6853gvj2etkjscvolje3mnrifc';
+    const logoutUri = 'http://localhost:5173/';
+    const cognitoDomain =
+      'https://ap-northeast-1govy1nd3f.auth.ap-northeast-1.amazoncognito.com';
     window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
   };
 
