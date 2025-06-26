@@ -34,7 +34,11 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 
-  }
+}
+
+.title:hover {
+    text-decoration: underline;
+}
 
 .profileImage {
     width: 30px;
@@ -47,4 +51,12 @@
 .userName {
     font-weight: bold;
     text-align: left;
+}
+
+.userName:hover {
+    text-decoration: underline;
+}
+
+.clickableCard{
+    cursor: pointer;
 }
