@@ -2,17 +2,14 @@
 name: Deploy Backend to EC2
 
 on:
-  workflow_run:
-    workflows: ["CI"]      # CI ワークフローの name と合わせる
-    types:
-      - completed
+  push:
+    branches:
+      - main
 
 jobs:
   deploy-backend:
     name: Deploy Python Backend to EC2
     runs-on: ubuntu-latest
-    # main ブランチかつ CI 成功時のみ
-    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' }}
 
     steps:
       - name: リポジトリをチェックアウト
